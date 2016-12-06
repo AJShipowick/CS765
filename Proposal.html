@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <button class="btn btn-primary" onclick="window.location='Home.html'"> Experiment</button>
+    <h2>Problem Statement</h2>
+    Discover technology used by top ranking sites on Google
+    </br></br>
+    <b>Objective:</b> Collect and organize data on top Google searched websites use of W3 standards and used tech.
+    </br>
+    <b>Problem:</b> There is no information out there directly related to how well websites do in search results in relation
+    to the web standards/tech these sites use.
+    </br>
+    <b>Statement:</b> By looking at the top trending topics on the web, scrape the data from the top 3 websites and the bottom
+    3 as well, catalog and organize the data on these websites, the tech they are using, how Google rates them and assign
+    a rating to them based on this information.
+
+    </br>
+    </br>
+    <p>
+        The data of these web sites will be taken from the html headers, javascript references and other W3 web standard considerations.
+        Then, according to items used (say 3-5 items), the sites will be assigned a rank in relation to the other websites.
+        For example, if a site is using (referencing) JQuery and Angular on their website, they may get 2 points for each
+        discovery. If they are using an older Javascript library, they may get 1 or 0 points depending on how popular and
+        well know that tech is. Do they use minified JS? Do they include their stylesheets in the header of their html and
+        their JS in the footer? These are just a few examples of how sites can be ranked based on the source of a site, how
+        it is ranked in google and the tech/standards that website follow. This data will then be inserted into a DB and
+        easily accessible through simple SQL data queries and may provide valuable insight into how Google promotes or penalizes
+        websites based on how well they keep up with the latest web standards. **Note, the above statement is a little long
+        I realize, however I expanded on some of the ideas presented based on previous discussion/confusion with the topic.
+        </br>
+        </br>
+
+        <b>References:</b>
+        </br>
+        <a href="http://www.kwpublisher.com/ci/uploads/journal_data/papers/540b0b07537faUsing%20SEO%20techniques%20Google%20Panda%20to%20Improve%20the%20Website%20ranking.pdf">Google and SEO</a>
+        </br>
+        <a href="http://sdiwc.net/digital-library/past-present-and-future-of-search-engine-optimization.html">SEO and the future</a>
+        </br>
+        <a href="http://startupinternetmarketing.com/dl/seo_google.pdf ">Prosper with new Google</a>
+        </br>
+        </br>
+        <b>Practical Considerations:</b>
+        </br>
+        <b>Scraping the data:</b>
+        </br>Depending on the tech being tracked within the website's source I would like to write a simple desktop or web
+        app that takes in a series of URL’s, then outputs the results of each URL/Website in a text report that can easily
+        be inserted into a DB. This should take me a little more than ½ of the time to get running and working. Inserting
+        and Querying data in a DB: If the majority of the work is done above, I am left with querying the Data.
+
+        </br>
+        </br>I want to setup SQLLite or SQL Server Express on my local computer for this. I am expecting this to take a few hours.
+        Based on the output I should be able to draw some conclusions on the data.
+
+        </br>
+        </br>
+        <b>Report:</b></br> The remainder of the time for this project will be spent on the report.
+
+        </br>
+        </br>
+        <b>Software for the Project:</b>
+        </br>
+        <a href="https://www.visualstudio.com/downloads/">Visual Studio Code for web scraping app </a>
+        </br>
+        <a href="https://sqlite.org/">SQLLite</a> (or) <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-sql-server-2016">SQL Server Express (2016)</a>
+        </br>
+        </br>
+        <b>Data for the Project:</b>
+        </br>
+        Here are a few example websites that are in the top positions (1, 2, 3) in Google for the search term Presidential Debate
+        2016 </br>
+        <a href="http://www.uspresidentialelectionnews.com/2016-debate-schedule/2016-presidential-debate-schedule/">link 1</a></br>
+        <a href="https://en.wikipedia.org/wiki/United_States_presidential_election_debates,_2016">link 2</a></br>
+        <a href="http://www.debates.org/index.php?page=2016debates">link 3</a></br>
+        </br>
+
+        Here are 3 websites that are in positions 98, 99 and 100 for the same search term:</br>
+        <a href="//www.10tv.com/article/presidential-debate-2016-five-things-watch-monday-nights-showdown">link 4</a></br>
+        <a href="http://www.thegatewaypundit.com/2016/09/paula-jones-want-attend-presidential-debate/">link 5</a></br>
+        <a href="https://www.studentnewsdaily.com/2016-presidential-election/">link 6</a>
+
+        </br>
+        </br>Here is an example snippet of source of the #1 website:</br> 
+        <img src="Website1Example.png"></img>
+        </br></br>
+        And for the 100th website: </br>
+        <img src="Website2Example.png"></img>
+        </br>
+        This type of data, CSS libraries
+        used, where JS is loaded and if other browsers are specifically supported will all be collected for each website.
+        Once the criteria is established, each website will be graded off of that and given a rank. The ranks of the top
+        and bottom websites can then be analysed view DB queries after the data has been inserted.
+    </p>
+    </br>
+    <button class="btn btn-primary" onclick="window.location='Home.html'"> Experiment</button>
+</body>
+
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</footer>
+
+</html>
