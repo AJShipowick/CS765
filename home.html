@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>Technology, SEO Rank and Google Search Placement</h1>
+        <p>CS765 Project Experiment</p>
+        <p>Adam Shipowick</p>
+    </div>
+
+    <button class="btn btn-primary" onclick="window.location='Proposal.html'">Project Proposal</button></br>
+    <h3>Enter the search keyword being used</h3><button class="btn btn-primary" onclick="showHowTo()">?</button>
+    <input id='keyword' size="50px" placeholder="Search Keyword"></input>
+    </br>
+    </br>
+
+    <h3>Enter the top 3 ranking websites for the above keyword (eg: 1, 2, 3 in search results)</h3>
+    <div class="alert alert-warning">
+        Make sure to use the full URL, eg: 'https://www.Google.com'
+    </div>
+
+    <input id='good1' size="50px" placeholder="Top Ranking Website 1"></input>
+    </br>
+    <input id='good2' size="50px" placeholder="Top Ranking Website 2"></input>
+    </br>
+    <input id='good3' size="50px" placeholder="Top Ranking Website 3"></input>
+    </br>
+    </br>
+
+    <h3>Enter the bottom 3 ranking websites for the above keyword (eg: 98, 99, 100 in search results)</h3>
+    <input id='bad1' size="50px" placeholder="Bottom Ranking Website 1"></input>
+    </br>
+    <input id='bad2' size="50px" placeholder="Bottom Ranking Website 2"></input>
+    </br>
+    <input id='bad3' size="50px" placeholder="Bottom Ranking Website 3"></input>
+    </br>
+    </br>
+
+    <button onclick="analyizeWebsites()" class="btn btn-primary">Analyze and Generate SQL</button>
+
+    <!--Results!!-->
+    <div class="progress">
+        <div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="6">
+            <span class="sr-only">working..</span>
+        </div>
+    </div>
+
+</body>
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="home.js"></script>
+</footer>
+
+</html>
