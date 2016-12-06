@@ -1,3 +1,4 @@
+//Global variables
 var sql;
 var sitesProcessed;
 var percentProcessed;
