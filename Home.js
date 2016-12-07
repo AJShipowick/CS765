@@ -1,6 +1,7 @@
 //Global variables
 var sql;
 var sitesProcessed;
+var siteErrors;
 var percentProcessed;
 
 function analyizeWebsites() {
@@ -8,10 +9,11 @@ function analyizeWebsites() {
     if (requiredValueMissing()) {
         return;
     }
-    
+
     document.getElementById("progress").setAttribute("style", "width:5%");
     sql = "";
     sitesProcessed = 0;
+    siteErrors = 0;
     percentProcessed = 0;
     createSQLTable();
 
@@ -38,11 +40,15 @@ function analyizeWebsites() {
 
 function handleSiteData(header, siteURL, siteNumber) {
     buildSQLfromHeader(header, siteURL, siteNumber);
-    sitesProcessed ++;
+    sitesProcessed++;
+}
+
+function handleSiteError(siteURL){
+        sql += "URL FAILURE " + siteURL + "\n";
 }
 
 function createSQLTable() {
-    sql += "CREATE TABLE GoogleWebsites(WebsiteName varchar(255), PageURL varchar(255), SearchRanking(int), SearchTerm varchar(255), WordpressSite(int), PageHasTitle(ing), PageUsesGoogleAnalytics(int), PageSupportsIE9(int), HTTPSUsed(int));\n";
+    sql += "CREATE TABLE GoogleWebsites(WebsiteName varchar(255), PageURL varchar(255), SearchRanking int, SearchTerm varchar(255), WordpressSite int, PageHasTitle int, PageUsesGoogleAnalytics int, PageSupportsIE9 int, HTTPSUsed int);\n";
 }
 
 //Parse/match header string and build SQL statement
@@ -79,7 +85,9 @@ function buildSQLfromHeader(header, siteURL, siteNumber) {
         httpsUsed = 1;
     }
 
-    sql += "INSERT INTO GoogleWebsites (WebsiteName, PageURL, SearchRanking, SearchTerm, WordpressSite, PageHasTitle, PageUsesGoogleAnalytics, PageSupportsIE9, HTTPSUsed) VALUES ('" + websiteName + "', '" + pageURL + "', '" + searchRanking + "', '" + searchTerm + "', '" + wordpresSite + "', '" + pageHasTitle + "', '" + pageUsesGoogleAnalytics + "', '" + pageSupportsIE9 + "', '" + httpsUsed + "');\n";
+    sql += "INSERT INTO GoogleWebsites (WebsiteName, PageURL, SearchRanking, SearchTerm, WordpressSite, PageHasTitle, PageUsesGoogleAnalytics, PageSupportsIE9, HTTPSUsed) VALUES ('" + 
+    websiteName + "', '" + pageURL + "', '" + searchRanking + "', '" + searchTerm + "', '" + wordpresSite + "', '" + 
+    pageHasTitle + "', '" + pageUsesGoogleAnalytics + "', '" + pageSupportsIE9 + "', '" + httpsUsed + "');\n";
 
 }
 
@@ -102,7 +110,7 @@ function extractDomain(url) {
 function outputSQLFile() {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(sql));
-    pom.setAttribute('download', 'testProject.txt');
+    pom.setAttribute('download', 'outputSQL.txt');
 
     if (document.createEvent) {
         var event = document.createEvent('MouseEvents');
@@ -118,21 +126,28 @@ function outputSQLFile() {
 function queryWebsite(siteURL, siteNumber) {
     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
 
-    $.get(http + '//cors-anywhere.herokuapp.com/' + siteURL,
-        function (response) {
+    $.ajax({
+        url: http + '//cors-anywhere.herokuapp.com/' + siteURL,
+        type: 'GET',
+        success: function (data) {
             //http://stackoverflow.com/questions/13471840/how-to-get-head-and-body-tags-as-a-string-from-html-string
-            var header = response.match(/<head[^>]*>[\s\S]*<\/head>/gi);
+            var header = data.match(/<head[^>]*>[\s\S]*<\/head>/gi);
 
-            percentProcessed += 15;    
+            percentProcessed += 15;
             document.getElementById("progress").setAttribute("style", "width:" + percentProcessed + "%");
             handleSiteData(header, siteURL, siteNumber);
 
-            if (sitesProcessed === 6){
+            if (sitesProcessed + siteErrors === 6) {
                 outputSQLFile();
                 document.getElementById("progress").setAttribute("style", "width:100%");
             }
 
-        });
+        },
+        error: function (data) {
+            siteErrors += 1;
+            handleSiteError(siteURL);
+        }
+    });
 }
 
 function requiredValueMissing() {
@@ -167,4 +182,8 @@ function requiredValueMissing() {
 
 function showHowTo() {
     alert("Use this keyword in Google to get your top and bottom ranking websites.  \n\nThese top and bottom 3 website will be analysed and an output file with executable SQL will be generated and downloaded to your local machine, ready for execution in a DBMS.");
+}
+
+function explainProjectSource(){
+    alert("Place all source file on your local machine.  Then open 'Home.html' in a web browser (eg: Chrome)");
 }

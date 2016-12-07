@@ -13,7 +13,11 @@
         <p>Adam Shipowick</p>
     </div>
 
-    <button class="btn btn-primary" onclick="window.location='Proposal.html'">Project Proposal</button></br>
+    <button class="btn btn-primary" onclick="window.location='Proposal.html'">Project Proposal</button> |
+    <button class="btn btn-primary" onclick="explainProjectSource()">Download and Run Project?</button> |
+    <button class="btn btn-primary" onclick="window.location='https://github.com/AirborneGamer/CS765'">GitHub Source</button>
+    </br>
+
     <h3>Enter the search keyword being used</h3><button class="btn btn-primary" onclick="showHowTo()">?</button>
     <input id='keyword' size="50px" placeholder="Search Keyword"></input>
     </br>
@@ -42,7 +46,7 @@
     </br>
 
     <button onclick="analyizeWebsites()" class="btn btn-primary">Analyze and Generate SQL</button>
-
+    </br>
     <!--Results!!-->
     <div class="progress">
         <div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0"
