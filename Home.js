@@ -43,8 +43,8 @@ function handleSiteData(header, siteURL, siteNumber) {
     sitesProcessed++;
 }
 
-function handleSiteError(siteURL){
-        sql += "URL FAILURE " + siteURL + "\n";
+function handleSiteError(siteURL) {
+    sql += "URL FAILURE " + siteURL + "\n";
 }
 
 function createSQLTable() {
@@ -85,9 +85,9 @@ function buildSQLfromHeader(header, siteURL, siteNumber) {
         httpsUsed = 1;
     }
 
-    sql += "INSERT INTO GoogleWebsites (WebsiteName, PageURL, SearchRanking, SearchTerm, WordpressSite, PageHasTitle, PageUsesGoogleAnalytics, PageSupportsIE9, HTTPSUsed) VALUES ('" + 
-    websiteName + "', '" + pageURL + "', '" + searchRanking + "', '" + searchTerm + "', '" + wordpresSite + "', '" + 
-    pageHasTitle + "', '" + pageUsesGoogleAnalytics + "', '" + pageSupportsIE9 + "', '" + httpsUsed + "');\n";
+    sql += "INSERT INTO GoogleWebsites (WebsiteName, PageURL, SearchRanking, SearchTerm, WordpressSite, PageHasTitle, PageUsesGoogleAnalytics, PageSupportsIE9, HTTPSUsed) VALUES ('" +
+        websiteName + "', '" + pageURL + "', '" + searchRanking + "', '" + searchTerm + "', '" + wordpresSite + "', '" +
+        pageHasTitle + "', '" + pageUsesGoogleAnalytics + "', '" + pageSupportsIE9 + "', '" + httpsUsed + "');\n";
 
 }
 
@@ -137,17 +137,24 @@ function queryWebsite(siteURL, siteNumber) {
             document.getElementById("progress").setAttribute("style", "width:" + percentProcessed + "%");
             handleSiteData(header, siteURL, siteNumber);
 
-            if (sitesProcessed + siteErrors === 6) {
-                outputSQLFile();
-                document.getElementById("progress").setAttribute("style", "width:100%");
-            }
+            outputSQLIfReady();
 
         },
         error: function (data) {
             siteErrors += 1;
             handleSiteError(siteURL);
+
+            outputSQLIfReady();
         }
     });
+}
+
+function outputSQLIfReady() {
+    if (sitesProcessed + siteErrors === 6) {
+        outputSQLFile();
+        document.getElementById("progress").setAttribute("style", "width:100%");
+    }
+
 }
 
 function requiredValueMissing() {
@@ -184,6 +191,6 @@ function showHowTo() {
     alert("Use this keyword in Google to get your top and bottom ranking websites.  \n\nThese top and bottom 3 website will be analysed and an output file with executable SQL will be generated and downloaded to your local machine, ready for execution in a DBMS.");
 }
 
-function explainProjectSource(){
+function explainProjectSource() {
     alert("Place all source file on your local machine.  Then open 'Home.html' in a web browser (eg: Chrome)");
 }
